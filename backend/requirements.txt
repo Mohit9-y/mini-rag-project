@@ -1,13 +1,9 @@
 fastapi
 uvicorn
-langchain>=0.3.0
-langchain-core
-langchain-community
 langchain-huggingface
 langchain-openai
-langchain-text-splitters
-sentence-transformers
+langchain-core
+langchain-community
 faiss-cpu
 python-dotenv
 pypdf
-numpy

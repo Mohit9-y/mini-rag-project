@@ -1,14 +1,17 @@
 from langchain_huggingface import HuggingFaceEmbeddings
-from config import OPENROUTER_API_KEY
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 from langchain_community.vectorstores import FAISS
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import PromptTemplate
+from langchain_huggingface import HuggingFaceEndpointEmbeddings
 import os
 
 INDEX_PATH = "../faiss_index/"
 
-embeddings = HuggingFaceEmbeddings(
-  model_name="sentence-transformers/all-MiniLM-L6-v2"
+
+embeddings = HuggingFaceEndpointEmbeddings(
+    model="sentence-transformers/all-MiniLM-L6-v2",
+    huggingfacehub_api_token=os.getenv("HF_TOKEN") 
 )
 
 db = FAISS.load_local(
