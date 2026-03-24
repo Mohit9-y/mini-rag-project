@@ -1,7 +1,7 @@
-from langchain_community.document_loaders import PyPDFLoader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.embeddings import HuggingFaceEmbeddings
-from langchain.vectorstores import FAISS
+from langchain_community.document_loaders import TextLoader
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_huggingface import HuggingFaceEmbeddings 
+from langchain_community.vectorstores import FAISS 
 import os
 
 DATA_PATH = "../data/raw/"
@@ -10,8 +10,8 @@ INDEX_PATH = "../faiss_index/"
 def load_documents():
   docs = []
   for file in os.listdir(DATA_PATH):
-    if file.endswith(".pdf"):
-      loader = PyPDFLoader(os.path.join(DATA_PATH, file))
+    if file.endswith(".md"):
+      loader = TextLoader(os.path.join(DATA_PATH, file),encoding="utf-8")
       docs.extend(loader.load())
   return docs
 

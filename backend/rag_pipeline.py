@@ -1,7 +1,9 @@
-from langchain.embeddings import HuggingFaceEmbeddings
-from langchain.vectorstores import FAISS
-from langchain.chat_models import ChatOpenAI
+from langchain_huggingface import HuggingFaceEmbeddings
+from config import OPENROUTER_API_KEY
+from langchain_community.vectorstores import FAISS
+from langchain_openai import ChatOpenAI
 from langchain.prompts import PromptTemplate
+import os
 
 INDEX_PATH = "../faiss_index/"
 
@@ -9,13 +11,17 @@ embeddings = HuggingFaceEmbeddings(
   model_name="sentence-transformers/all-MiniLM-L6-v2"
 )
 
-db = FAISS.load_local(INDEX_PATH, embeddings)
+db = FAISS.load_local(
+  INDEX_PATH,
+   embeddings,
+   allow_dangerous_deserialization=True
+   )
 
 llm = ChatOpenAI(
-  model="meta-llama/llama-3.3-70b-instruct:free",
+  model="nvidia/nemotron-3-nano-30b-a3b:free",
   openai_api_base="https://openrouter.ai/api/v1",
-  openai_api_key=os.getenv("OPENROUTER_API_KEY"),
-  temperature=0
+  openai_api_key=OPENROUTER_API_KEY,
+  temperature=1
 )
 
 prompt_template = """
@@ -46,7 +52,8 @@ def ask_question(query):
 
   final_prompt = prompt.format(context=context,question=query)
 
-  answer = llm.predict(final_prompt)
+  response = llm.invoke(final_prompt)
+  answer = response.content 
 
   return {
     "answer": answer,
