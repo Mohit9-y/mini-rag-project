@@ -2,7 +2,7 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from config import OPENROUTER_API_KEY
 from langchain_community.vectorstores import FAISS
 from langchain_openai import ChatOpenAI
-from langchain.prompts import PromptTemplate
+from langchain_core.prompts import PromptTemplate
 import os
 
 INDEX_PATH = "../faiss_index/"
