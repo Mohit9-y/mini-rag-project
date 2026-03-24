@@ -26,7 +26,7 @@ llm = ChatOpenAI(
   model="nvidia/nemotron-3-nano-30b-a3b:free",
   openai_api_base="https://openrouter.ai/api/v1",
   openai_api_key=OPENROUTER_API_KEY,
-  temperature=1
+  temperature=3
 )
 
 prompt_template = """
