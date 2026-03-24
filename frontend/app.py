@@ -1,13 +1,13 @@
 import streamlit as st
 import requests
-
+BACKEND_URL = os.getenv("BACKEND_URL", "http://127.0.0.1:8000")
 st.title("Indecimal RAG Chatbot")
 
 query = st.text_input("Ask a question:")
 
 if st.button("Ask"):
   if query:      
-    res = requests.get(f"http://127.0.0.1:8000/ask?query={query}")
+    res = requests.get(f"{BACKEND_URL}/ask?query={query}")
     if res.status_code == 200:
       data = res.json()
 
