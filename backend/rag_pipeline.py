@@ -10,8 +10,9 @@ INDEX_PATH = "../faiss_index/"
 
 
 embeddings = HuggingFaceEndpointEmbeddings(
-    model="sentence-transformers/all-MiniLM-L6-v2",
-    huggingfacehub_api_token=os.getenv("HF_TOKEN") 
+    repo_id="sentence-transformers/all-MiniLM-L6-v2", 
+    huggingfacehub_api_token=os.getenv("HF_TOKEN"),
+    task="feature-extraction" 
 )
 
 db = FAISS.load_local(
