@@ -11,10 +11,10 @@ st.title("🤖 Personal AI Assistant")
 
 def check_backend():
     try:
-        response = requests.get(f"{BACKEND_URL}/", timeout=5)
-        return response.status_code == 200
+      response = requests.get(f"{BACKEND_URL}/", timeout=5)
+      return response.status_code == 200
     except:
-        return False
+      return False
 
 st.sidebar.header("System Status")
 if "backend_ready" not in st.session_state:
@@ -27,16 +27,16 @@ if not st.session_state.backend_ready:
             status.update(label="✅ Backend Online", state="complete")
         else:
             st.write("Checking if server is awake...")
-            st.sidebar.warning("⚠️ Backend is starting up. This can take 60s on the free tier.")
-            time.sleep(10)
+            st.sidebar.warning("⚠️ Backend is starting up. This can take ~ 60s.")
+            time.sleep(5)
             st.rerun()
 else:
     st.sidebar.success("✅ Connected to Render")
 
 
 query = st.text_input(
-    "Ask a question about your documents:", 
-    placeholder="e.g., What is the project about?",
+    "Ask anything:", 
+    placeholder="Ask anything related to Indecimal...",
     disabled=not st.session_state.backend_ready
 )
 
@@ -46,7 +46,15 @@ if query:
             try:
                 res = requests.get(f"{BACKEND_URL}/ask", params={"query": query})
                 if res.status_code == 200:
-                    st.markdown(f"### Answer:\n{res.json()}")
+                    data = res.json()
+
+                    answer = data.get("answer", "No answer found.")
+                    sources = data.get("context", [])
+                    st.subheader("Answer:")
+                    st.markdown(answer)
+                    with st.expander("📚 View Reference Sources"):
+                        for i, doc in enumerate(sources):
+                            st.info(f"Source {i+1}:\n{doc}")
                 else:
                     st.error(f"Error: {res.status_code}. Backend might be overloaded.")
             except Exception as e:
