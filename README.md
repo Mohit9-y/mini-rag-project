@@ -94,7 +94,7 @@ graph LR
 ## ⚙️ Implementation Details
 
 ### 1. Document Processing & Chunking
-- Parsed PDFs using `PyPDF2`
+- Parsed `.md` documents using `TextLoader` from LangChain
 - Split using `RecursiveCharacterTextSplitter`
 - Used overlapping chunks to preserve semantic continuity
 
@@ -162,15 +162,6 @@ streamlit run app.py
 
 ---
 
-## 🔮 Future Improvements
-
-- 🔐 Authentication & user sessions  
-- 📂 Multi-document upload support  
-- 🌐 Deployment with Docker & CI/CD  
-- 📈 Monitoring & logging (Prometheus/Grafana)  
-
----
-
 ## 👨‍💻 Author
 
 **Mohit Yadav**  
@@ -179,7 +170,8 @@ streamlit run app.py
 🏫 National Institute of Technology (NIT), Silchar  
 
 📧 Email: mohitpsf@gmail.com  
-🔗 LinkedIn: [Profile](https://www.linkedin.com/in/mohit-yadav-2a7a87388/)
+🔗 LinkedIn: [Profile](https://www.linkedin.com/in/mohit-yadav-2a7a87388/)  
+
 💻 GitHub: [Mohit9-y](https://github.com/Mohit9-y)
 
 ---
